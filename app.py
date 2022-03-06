@@ -47,7 +47,19 @@ class BaseModelView(ModelView):
         return super().on_model_change(form, model, is_created)
 
 class PostAdminView(AdminMixin, BaseModelView):
-    form_columns = ['title','body']
+    form_columns = ['title',
+                'subtitle_full',
+                'subtitle_short',
+                'thumnail',
+                'rating_tag',
+                'rating_img',
+                'rating_text',
+                'author',
+                'date',
+                'true_info',
+                'false_info',
+                'ctx_info',
+                'origin']
 
 admin = Admin(app,'FlaskApp',url='/', index_view=HomeAdminView(name='Home'))
 

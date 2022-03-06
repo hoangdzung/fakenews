@@ -5,10 +5,88 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{post.title}}</h1>
-    {% for post in posts %}
-      <div class="">
-        {{post.body}}
+<div class="col-8 mx-auto">
+   <div class="wp-block-snopes-fact-check-claim card mb-3 header">
+      <div class="claim-text card-body pb-0">
+         <!-- {{Title}} -->
+         <h3 class="title">
+            {{post.title}}
+         </h3>
+         <!-- {{Subtitle}} -->
+         <p class="subtitle">
+            {{post.subtitle_full}}
+         </p>
+         <!-- {{Author}} -->
+         <b class="d-block">By {{post.author}}</b>
+         <span class="published-date">Published {{post.date}}</span>
+         <br>
+         <br>
+
+         <div class="image-wrapper">
+            <img class="w-100" src="{{post.thumnail}}"/>
+         </div>
       </div>
-    {% endfor %}
+   </div>
+   <div class="wp-block-snopes-fact-check-claim card mb-3">
+      <div class="card-header">
+         <h3 class="h6">Claim</h3>
+      </div>
+      <div class="claim-text card-body">
+         {{post.claim}}
+      </div>
+   </div>
+   {% if post.rating_img|length>0 and post.rating_text|length>0 %}
+   <div
+      class="wp-block-snopes-fact-check-rating card mb-3"
+      data-component="claim-rating"
+      >
+      <div class="card-header">
+         <h3 class="h6">Rating</h3>
+      </div>
+      <div class="card-body">
+         <div class="media position-relative">
+            <div class="avatar-md avatar-lg-large mr-3">
+               <figure class="figure w-100 mb-0">
+                  <img alt="Mixture" class="figure-image img-responsive img-fluid w-100" height="100px" src="{{post.rating_img}}" width="100px">
+                  </img>
+               </figure>
+            </div>
+            <div class="media-body d-flex flex-column align-self-center">
+               <span class="h3 rating-label-mixture">{{post.rating_text}}</span>
+            </div>
+         </div>
+      </div>
+      {% if post.true_info|length>0%}
+      <div class="claim-text card-body">
+         <span class="h6 mb-1">What's True</span>
+         <p>{{post.true_info}}</p>
+      </div>
+      {% endif %}
+      {% if post.false_info|length>0%}
+      <div class="claim-text card-body">
+         <span class="h6 mb-1">What's False</span>
+         <p>{{post.false_info}}</p>
+      </div>
+      {% endif %}
+      {% if post.ctx_info|length>0%}
+      <div class="claim-text card-body">
+         <span class="h6 mb-1">Context</span>
+         <p>{{post.ctx_info}}</p>
+      </div>
+      {% endif %}
+   </div>
+   {%endif%}
+   <div class="wp-block-snopes-fact-check-claim card mb-3">
+      <div class="card-header">
+         <h3 class="h6">Origin</h3>
+      </div>
+      <div class="single-body card-body rich-text">
+         {{post.origin| replace('<img ', '<img style="max-height:100%; max-width:100%; object-fit: cover;  overflow: hidden;"') | safe }} 
+         <p>Original source: {{post.url}}</p>
+      </div>
+      
+
+   </div>
+</div>
+
 {% endblock %}
